@@ -1,6 +1,7 @@
-FROM ubuntu:xenial
+FROM ubuntu:17.10
 
 MAINTAINER Rene Kaufmann <kaufmann.r@gmail.com>
+MAINTAINER Eugene Lubarsky <eugene@patsoftware.com.au>
 
 ENV GOPATH /go
 ENV PATH $GOPATH/bin:/usr/local/go/bin:$PATH
@@ -26,10 +27,10 @@ RUN \
 	    rm -rf /var/lib/apt/lists/
 
 # Set the locale
-RUN locale-gen de_DE.UTF-8  
-ENV LANG de_DE.UTF-8  
-ENV LANGUAGE de_DE:de  
-ENV LC_ALL de_DE.UTF-8  
+#RUN locale-gen de_DE.UTF-8  
+#ENV LANG de_DE.UTF-8  
+#ENV LANGUAGE de_DE:de  
+#ENV LC_ALL de_DE.UTF-8  
 
 COPY supervisord.conf /etc/supervisor/conf.d/supervisord.conf
 

@@ -3,6 +3,8 @@ package main
 import (
 	"log"
 	"net/http"
+	"fmt"
+	"os"
 
 	"github.com/rs/xaccess"
 	"github.com/rs/xhandler"
@@ -39,5 +41,11 @@ func main() {
 
 	router.GET("/unoconv/health", xhandler.HandlerFuncC(healthHandler))
 	router.POST("/unoconv/:filetype", xhandler.HandlerFuncC(unoconvHandler))
-	log.Fatal(http.ListenAndServe(":3000", mw.Handler(router)))
+
+	port, havePort := os.LookupEnv("UNOCONV_PORT")
+	if !havePort {
+		port = "3000"
+	}
+	fmt.Printf("unoconv api server being started on port %s\n", port)
+	log.Fatal(http.ListenAndServe(fmt.Sprintf(":%s", port), mw.Handler(router)))
 }
